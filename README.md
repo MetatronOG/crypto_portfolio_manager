@@ -1,6 +1,6 @@
 # Crypto Portfolio Manager
 
-A comprehensive cryptocurrency portfolio management system that combines trading automation, whale tracking, and portfolio analytics in a modern web interface.
+A comprehensive cryptocurrency portfolio management system that combines portfolio tracking, whale monitoring, and analytics in a modern web interface.
 
 ## Features
 
@@ -10,11 +10,11 @@ A comprehensive cryptocurrency portfolio management system that combines trading
   - Performance analytics and metrics
   - Transaction history and logging
 
-- **Trading Automation**
-  - Configurable trading strategies
-  - Risk management tools
-  - Automated trade execution
-  - Performance monitoring
+- **Portfolio Analytics**
+  - Performance tracking
+  - Risk assessment
+  - Portfolio optimization
+  - Market analysis
 
 - **Whale Tracking**
   - Large transaction monitoring
@@ -25,7 +25,7 @@ A comprehensive cryptocurrency portfolio management system that combines trading
 - **Dashboard Interface**
   - Real-time portfolio overview
   - Performance metrics visualization
-  - Trading activity monitoring
+  - Portfolio activity monitoring
   - Quick action controls
   - Responsive design
 
@@ -39,9 +39,9 @@ crypto-portfolio-manager/
 │   │   └── src/           # Dashboard source code
 │   │       ├── components/ # React components
 │   │       └── App.jsx    # Main dashboard application
-│   └── trading_bot/       # Trading bot core
+│   └── portfolio/         # Portfolio management core
 │       ├── exchanges/     # Exchange integrations
-│       └── strategies/    # Trading strategies
+│       └── analytics/     # Portfolio analytics
 ├── telegram_alerts.py     # Telegram notification system
 ├── transaction_logger.py  # Transaction logging system
 ├── wallet_tracker.py      # Wallet monitoring system
@@ -52,8 +52,8 @@ crypto-portfolio-manager/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/MetatronOG/crypto-portfolio-manager.git
-   cd crypto-portfolio-manager
+   git clone https://github.com/MetatronOG/crypto_portfolio_manager.git
+   cd crypto_portfolio_manager
    ```
 
 2. Install dependencies:
@@ -79,8 +79,8 @@ crypto-portfolio-manager/
 
 4. Start the services:
    ```bash
-   # Start the trading bot
-   python src/trading_bot/main.py
+   # Start the portfolio manager
+   python crypto_portfolio_manager.py
 
    # Start the dashboard (in a separate terminal)
    cd src/dashboard
@@ -89,10 +89,10 @@ crypto-portfolio-manager/
 
 ## Configuration
 
-### Trading Bot Settings
-- Configure trading pairs in `src/trading_bot/config.py`
-- Adjust risk management parameters
-- Set up trading strategies
+### Portfolio Settings
+- Configure portfolio tracking in `src/portfolio/config.py`
+- Adjust risk assessment parameters
+- Set up portfolio optimization strategies
 
 ### Whale Tracking
 - Configure whale thresholds in `whale_tracker_integration.txt`
