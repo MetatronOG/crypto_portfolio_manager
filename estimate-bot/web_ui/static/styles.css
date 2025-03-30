@@ -1,0 +1,303 @@
+/* Custom styles for the Whale Tracker & Trading Bot Dashboard */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+    padding: 1rem;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+/* Market state badge styles */
+#market-state {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Card styles */
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    background: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    border-radius: 8px 8px 0 0;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Table styles */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+}
+
+.table td {
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+/* Badge styles */
+.badge {
+    padding: 0.5em 0.8em;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+.badge.bg-primary {
+    background-color: #0d6efd !important;
+}
+
+.badge.bg-orange {
+    background-color: #fd7e14 !important;
+    color: #fff;
+}
+
+/* Price update animation */
+@keyframes priceUpdate {
+    0% {
+        background-color: rgba(255, 255, 0, 0.2);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+.highlight {
+    animation: priceUpdate 0.8s ease-out;
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin: -2px -6px;
+}
+
+/* Holdings table styles */
+#iso20022-holdings, #meme-holdings {
+    font-size: 0.9rem;
+}
+
+#iso20022-holdings td, #meme-holdings td {
+    padding: 0.75rem;
+}
+
+/* Value displays */
+h3[id$="-value"] {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Protection rules list */
+#protection-rules .list-group-item {
+    border: none;
+    background-color: transparent;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.25rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+#protection-rules .list-group-item:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Cold storage section */
+#recent-transfers {
+    font-size: 0.85rem;
+}
+
+#recent-transfers td {
+    padding: 0.5rem;
+}
+
+/* Loading state */
+.loading {
+    position: relative;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #0d6efd;
+    border-radius: 50%;
+    animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+/* Price change indicators */
+.price-up {
+    color: #28a745;
+    transition: color 0.3s ease;
+}
+
+.price-down {
+    color: #dc3545;
+    transition: color 0.3s ease;
+}
+
+/* Toggle button styles */
+#toggle-meme-trading {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .table {
+        font-size: 0.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    .badge {
+        font-size: 0.7rem;
+    }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Smooth transitions */
+.alert, .badge, .btn {
+    transition: all 0.3s ease;
+}
+
+/* DCA status indicator */
+.dca-active {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.dca-waiting {
+    color: #6c757d;
+}
+
+/* Market state colors */
+.state-normal { background-color: #28a745 !important; }
+.state-caution { background-color: #ffc107 !important; color: #000 !important; }
+.state-warning { background-color: #fd7e14 !important; }
+.state-danger { background-color: #dc3545 !important; }
+
+/* Profit/Loss colors */
+.profit { color: #28a745; }
+.loss { color: #dc3545; }
+
+/* Custom styles for system status alerts */
+#trading-status, #api-status {
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Custom styles for error logs */
+#error-logs {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Whale alert styling */
+#latest-whale-alert {
+    padding: 0.5rem;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Risk level indicator */
+#risk-level {
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Performance metrics */
+#trades-today, #win-rate, #profit-today {
+    margin-bottom: 0;
+    color: #2c3e50;
+} 

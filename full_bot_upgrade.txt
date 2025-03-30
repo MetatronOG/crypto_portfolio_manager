@@ -1,0 +1,126 @@
+# Full Bot Upgrade - Whale Tracker & Automation Enhancements
+
+## 📌 Overview
+This update integrates the **Whale Tracker module** and **Automated Trading Enhancements** into the existing bot.
+It prevents the bot from reacting to **whale manipulations** and enhances overall trading security.
+
+## 📂 Folder Structure Update
+```
+📁 estimate-bot
+ ┣ 📂 src
+ ┃ ┣ 📂 whale_tracker
+ ┃ ┃ ┣ 📜 whale_detector.py  👈 (Main detection script)
+ ┃ ┃ ┣ 📜 config.py  👈 (API keys & settings)
+ ┃ ┃ ┣ 📜 whale_alerts.py  👈 (Sends notifications)
+ ┃ ┣ 📂 trading_bot
+ ┃ ┃ ┣ 📜 trade_executor.py  👈 (Handles trade execution logic)
+ ┃ ┣ 📜 main.py  👈 (Runs the bot)
+ ┣ 📜 README.md
+ ┣ 📜 requirements.txt  👈 (Updated dependencies)
+ ┗ 📜 upgrade_notes.txt  👈 (Setup & integration details)
+```
+
+## 🚀 New Features & Changes
+
+### 🔹 **Whale Tracker System**
+- **Detects whale transactions** to avoid trading during manipulation events.
+- **Prevents false dumps & short squeezes** from triggering bad trades.
+- **Alerts via email or Telegram** when large transactions are detected.
+
+### 🔹 **Trade Execution Improvements**
+- **Stops trades when whale activity is detected**.
+- **Implements AI sentiment tracking** to cross-check market trends.
+- **Adds order execution delay logic** to prevent reacting to fake buy/sell walls.
+
+### 🔹 **Security & Risk Management**
+- **Auto-adjusts trading risk** based on whale movement & market volatility.
+- **Gas fee optimization** ensures transactions execute at the lowest possible cost.
+- **Multi-wallet tracking** for both cold storage & active trading accounts.
+
+---
+
+## 🛠️ Required Updates
+
+### 📜 **1. Update `requirements.txt`** (Install New Dependencies)
+```bash
+pip install requests pandas ccxt smtplib web3
+```
+
+### 📜 **2. Modify `main.py` to Integrate Whale Tracker**
+```python
+from whale_tracker.whale_detector import monitor_whales
+
+# Before making a trade, check for whale activity
+def trade_decision():
+    alerts = monitor_whales()
+    if alerts:
+        print("🚨 Whale detected! Adjusting strategy...")
+        return False  # Avoid trading during whale movements
+    return True  # Continue normal execution
+
+# Example trading function
+if trade_decision():
+    execute_trade()  # Existing trade execution function
+```
+
+### 📜 **3. Add Whale Detection (`whale_detector.py`)**
+```python
+import requests
+import time
+from config import ETHERSCAN_API_KEY, SOLANA_API_KEY
+
+def get_ethereum_whale_transactions():
+    url = f"https://api.etherscan.io/api?module=account&action=txlist&address=0xWhaleWallet&apikey={ETHERSCAN_API_KEY}"
+    response = requests.get(url).json()
+    return response["result"]
+
+def analyze_transactions(transactions):
+    alerts = []
+    for tx in transactions:
+        value = int(tx["value"]) / 10**18  # Convert Wei to ETH
+        if value > 100:  # Large transaction threshold
+            alerts.append(f"Whale Alert: {value} ETH moved!")
+    return alerts
+
+def monitor_whales():
+    eth_alerts = analyze_transactions(get_ethereum_whale_transactions())
+    return eth_alerts if eth_alerts else None
+```
+
+### 📜 **4. Add Email Alerts (`whale_alerts.py`)**
+```python
+import smtplib
+from email.mime.text import MIMEText
+from config import EMAIL, PASSWORD
+
+def send_alert(message):
+    msg = MIMEText(message)
+    msg["Subject"] = "🚨 Whale Alert 🚨"
+    msg["From"] = EMAIL
+    msg["To"] = "your-email@example.com"
+    
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(EMAIL, PASSWORD)
+        server.sendmail(EMAIL, "your-email@example.com", msg.as_string())
+```
+
+### 📜 **5. Update Configuration File (`config.py`)**
+```python
+# API Keys (Replace with your own)
+ETHERSCAN_API_KEY = "your-etherscan-api-key"
+SOLANA_API_KEY = "your-solana-api-key"
+
+# Email Alerts
+EMAIL = "your-email@example.com"
+PASSWORD = "your-email-password"  # Use App Passwords if using Gmail
+```
+
+---
+
+## 🏁 Final Steps:
+1️⃣ **Ensure all new files are in the correct repo locations.**  
+2️⃣ **Run the Whale Tracker independently to test transaction monitoring.**  
+3️⃣ **Enable alerts to validate whale detection before trading.**  
+4️⃣ **Merge changes with your bot and monitor performance.**  
+
+Let me know if you need additional refinements! 🚀

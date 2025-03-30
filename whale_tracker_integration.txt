@@ -1,0 +1,92 @@
+# Whale Tracker Integration - Cursor AI Reference File
+
+## Overview
+This document provides a structured guide for Cursor AI to integrate the Whale Tracker module into the existing bot. 
+It ensures the bot does not fall for whale manipulation tactics such as fake dumps, buy/sell walls, and liquidation traps.
+
+## Steps for Implementation:
+
+1. **Create the Whale Tracker Module** 
+   - Add `whale_detector.py` to `src/whale_tracker/`
+   - Add `whale_alerts.py` for email/Telegram alerts
+   - Add `config.py` to store API keys and settings
+   
+2. **Update the Main Trading Bot (`main.py`)**
+   - Before executing any trade, call `monitor_whales()`
+   - If whale activity is detected, the bot should pause trading or adjust risk levels
+   
+3. **Modify `requirements.txt`**
+   - Add dependencies: `requests`, `pandas`, `ccxt`, `smtplib`
+
+## Code Updates:
+
+### Update `main.py` to Include Whale Tracker
+```python
+from whale_tracker.whale_detector import monitor_whales
+
+# Before making a trade, check for whale activity
+def trade_decision():
+    alerts = monitor_whales()
+    if alerts:
+        print("🚨 Whale detected! Adjusting strategy...")
+        return False  # Avoid trading during whale movements
+    return True  # Continue normal execution
+
+# Example trading function
+if trade_decision():
+    execute_trade()  # Existing trade execution function
+```
+
+### Add Whale Tracker Logic to `whale_detector.py`
+```python
+import requests
+import time
+from config import ETHERSCAN_API_KEY, SOLANA_API_KEY
+
+def get_ethereum_whale_transactions():
+    url = f"https://api.etherscan.io/api?module=account&action=txlist&address=0xWhaleWallet&apikey={ETHERSCAN_API_KEY}"
+    response = requests.get(url).json()
+    return response["result"]
+
+def analyze_transactions(transactions):
+    alerts = []
+    for tx in transactions:
+        value = int(tx["value"]) / 10**18  # Convert Wei to ETH
+        if value > 100:  # Large transaction threshold
+            alerts.append(f"Whale Alert: {value} ETH moved!")
+    return alerts
+
+def monitor_whales():
+    eth_alerts = analyze_transactions(get_ethereum_whale_transactions())
+    return eth_alerts if eth_alerts else None
+```
+
+### Add Whale Alerts (`whale_alerts.py`)
+```python
+import smtplib
+from email.mime.text import MIMEText
+from config import EMAIL, PASSWORD
+
+def send_alert(message):
+    msg = MIMEText(message)
+    msg["Subject"] = "🚨 Whale Alert 🚨"
+    msg["From"] = EMAIL
+    msg["To"] = "your-email@example.com"
+    
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(EMAIL, PASSWORD)
+        server.sendmail(EMAIL, "your-email@example.com", msg.as_string())
+```
+
+### Add Config File (`config.py`)
+```python
+ETHERSCAN_API_KEY = "your-etherscan-api-key"
+SOLANA_API_KEY = "your-solana-api-key"
+EMAIL = "your-email@example.com"
+PASSWORD = "your-email-password"
+```
+
+## Final Steps:
+1. Ensure `whale_tracker` is properly imported in `main.py`
+2. Test the module by tracking large wallets and triggering alerts
+3. Optimize decision-making logic based on whale activity

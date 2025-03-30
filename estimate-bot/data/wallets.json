@@ -1,0 +1,26 @@
+{
+    "0x28C6c06298d514Db089934071355E5743bf21d60": {
+        "chain": "ETH",
+        "label": "Binance Hot Wallet",
+        "first_seen": "2024-01-01T00:00:00",
+        "last_active": "2024-03-14T00:00:00",
+        "total_transactions": 1000,
+        "total_volume": 500000
+    },
+    "0x21a31Ee1afC51d94C2eFcCAa2092aD1028285549": {
+        "chain": "ETH",
+        "label": "Coinbase Hot Wallet",
+        "first_seen": "2024-01-01T00:00:00",
+        "last_active": "2024-03-14T00:00:00",
+        "total_transactions": 800,
+        "total_volume": 400000
+    },
+    "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh": {
+        "chain": "XRP",
+        "label": "Ripple Escrow Wallet",
+        "first_seen": "2024-01-01T00:00:00",
+        "last_active": "2024-03-14T00:00:00",
+        "total_transactions": 500,
+        "total_volume": 1000000000
+    }
+} 
